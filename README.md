@@ -40,7 +40,7 @@ To run the Punk Application, ensure you have the following installed:
 
 ### Check env 
 
-- Ensure that BASE_URL in .env is pointing to the correct back end url 
+- Ensure that BASE_URL in .env is pointing to the correct back end (Https) url - should be https://localhost:7218 
 
 #### Ensure it is HTTPS
 
