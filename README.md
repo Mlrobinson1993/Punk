@@ -26,7 +26,7 @@ To run the Punk Application, ensure you have the following installed:
 - dotnet restore,
 - dotnet build
 
-### !!Run the application with HTTPS configuration!!
+### !!Run the application with HTTPS!!
 
 ## Frontend
 
