@@ -5,6 +5,37 @@
 # Introduction
 The Punk Application is a .NET 7.0 Web API with a Nuxt 3 front-end application.
 
+## Technologies used
+
+#### Backend
+- .NET 7.0 - Performant, cross-platform compatible, huge ecosystem.
+- Entity Framework Core (ORM) - Industry gold standard, performant, allows for easy database migrations (in this context is very handy).
+- NUnit (Testing)
+
+#### Frontend
+- Nuxt 3 - Convention over configuration. Allows you to get off of the ground quickly and easily, abstracting away redundant tasks (i.e. routing).
+- Pinia (State management) - Allows for modular stores and clean code. Is the gold standard for Nuxt 3 apps.
+- SCSS (styling) - Allows for cleaner code with nesting and provides helpers that vanilla CSS does not.
+
+#### Database
+- Azure SQL - Quick, easy, out-of-the-box, limited configuration database deployments.
+
+## Design Patterns 
+
+#### Back End
+- CQRS (Command Query Responsibility Segregation)
+- Mediatr
+
+##### Why?
+- clear separation of commands and queries, resulting in a scalable and maintainable codebase.
+
+#### Front End
+- Composables pattern
+
+##### Why? 
+- Clear separation and modularisation of code.
+
+
 ## System Requirements
 To run the Punk Application, ensure you have the following installed:
 
