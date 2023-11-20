@@ -15,22 +15,14 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication("JwtAuthScheme")
     .AddScheme<AuthenticationSchemeOptions, JwtAuthenticationHandler>("JwtAuthScheme", null);
 
-
+var origins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
 builder.Services.AddCors(options =>
 {
-    // var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
-    //
-    // options.AddPolicy("AllowSpecificOrigin",
-    //     builder => builder.WithOrigins("https://main--transcendent-entremet-4b0e75.netlify.app",
-    //             "http://main--transcendent-entremet-4b0e75.netlify.app")
-    //         .AllowAnyMethod()
-    //         .AllowAnyHeader()
-    //         .AllowCredentials());
-
     options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.AllowAnyOrigin()
+        builder => builder.WithOrigins(origins)
             .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyHeader()
+            .AllowCredentials());
 });
 
 var app = builder.Build();

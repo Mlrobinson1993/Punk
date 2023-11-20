@@ -18,7 +18,6 @@
 
 <script lang="ts" setup>
 import { useUserStore } from "~/store";
-import { storeToRefs } from "pinia";
 import { computed, ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useToast } from "~/composables/useToast";
@@ -35,12 +34,13 @@ const { maxResults } = defineProps({
 const currentPage = ref(1);
 const loading = ref(true);
 const userStore = useUserStore();
+const beers = ref([]);
 const { userFavouriteBeers } = storeToRefs(userStore);
 const route = useRoute();
 
 // Computed Properties
 const showSeeMore = computed(
-  () => route.path === "/" && userFavouriteBeers.value.length > 0
+  () => route.path === "/" && beers.value.length > 0
 );
 
 // Methods
@@ -53,12 +53,7 @@ const handlePagination = async (page: number) => {
 
 const fetchBeers = async () => {
   try {
-    const userFavouriteBeers = await userStore.fetchUserFavouriteBeers(
-      currentPage.value,
-      maxResults
-    );
-
-    userStore.setUserFavouriteBeers(userFavouriteBeers);
+    await userStore.fetchUserFavouriteBeers(currentPage.value, maxResults);
   } catch (e) {
     showToast("error", err?.data?.message ?? "Something went wrong", 4000);
   } finally {

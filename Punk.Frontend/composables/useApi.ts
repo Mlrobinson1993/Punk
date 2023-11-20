@@ -14,7 +14,7 @@ export function useApi() {
 
       const response: ApiResponse<T> = await $fetch(url, {
         ...options,
-        // credentials: "include",
+        credentials: "include",
       });
 
       return response;

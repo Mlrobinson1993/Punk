@@ -25,7 +25,12 @@ export const useUserStore = defineStore(
           `/beer/favourites?page=${page}&pageSize=${maxResults}`
         );
 
-        return response?.statusCode === 200 ? response.data : [];
+        if (response.statusCode === 200) {
+          setUserFavouriteBeers(response.data);
+          // return response.data;
+        }
+
+        return [];
       } catch (err: any) {
         console.log(err);
         return [];

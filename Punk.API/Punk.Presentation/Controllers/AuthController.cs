@@ -14,29 +14,26 @@ namespace Punk.Presentation.Controllers;
 [Route("api/[controller]")]
 public class AuthController : BaseController
 {
-    private readonly IJwtService _jwtService;
-
-    public AuthController(IMediator mediator, IJwtService jwtService) : base(mediator)
+    public AuthController(IMediator mediator) : base(mediator)
     {
-        _jwtService = jwtService;
     }
 
     [HttpPost("authenticate")]
     [AllowAnonymous]
     public async Task<IActionResult> Authenticate([FromForm] AuthenticateUserCommand command)
     {
-        return await ProcessMediator(command, 200, 401);
+        var response = await ProcessMediatorForData(command, 200, 401);
 
-        // if (response.Success)
-        // {
-        //     var authData = (UserDto)response.Data;
-        //     // AddCookies(authData.Token, authData.RefreshToken);
-        // }
-        //
-        // return new ObjectResult(response)
-        // {
-        //     StatusCode = response.StatusCode
-        // };
+        if (response.Success)
+        {
+            var authData = (UserDto)response.Data;
+            AddCookies(authData.Token, authData.RefreshToken);
+        }
+
+        return new ObjectResult(response)
+        {
+            StatusCode = response.StatusCode
+        };
     }
 
     [HttpPost("refresh")]
@@ -49,7 +46,7 @@ public class AuthController : BaseController
         if (response.Success)
         {
             var tokenData = (RefreshTokenDto)response.Data;
-            // AddCookies(tokenData.Token, tokenData.RefreshToken);
+            AddCookies(tokenData.Token, tokenData.RefreshToken);
         }
 
         return new ObjectResult(response)
@@ -64,7 +61,7 @@ public class AuthController : BaseController
     {
         var token = Request.Cookies["AccessToken"];
 
-        // RemoveCookies();
+        RemoveCookies();
 
         return await ProcessMediator(new DeauthenticateUserCommand(token), 200, 400);
     }
@@ -72,32 +69,31 @@ public class AuthController : BaseController
     [HttpGet("validate")]
     public async Task<IActionResult> Validate()
     {
-        // var test = Request.Cookies;
         return await ProcessMediator(new ValidateTokenQuery(Request.Cookies["AccessToken"]), 200, 400);
     }
 
-    // private void AddCookies(string accessToken, string refreshToken)
-    // {
-    //     SetCookie("AccessToken", accessToken, 720);
-    //     SetCookie("RefreshToken", refreshToken, 1440);
-    // }
-    //
-    // private void RemoveCookies()
-    // {
-    //     Response.Cookies.Delete("AccessToken");
-    //     Response.Cookies.Delete("RefreshToken");
-    // }
-    //
-    // private void SetCookie(string key, string value, int expireTimeInMinutes)
-    // {
-    //     var cookieOptions = new CookieOptions
-    //     {
-    //         HttpOnly = true,
-    //         Expires = DateTimeOffset.UtcNow.AddMinutes(expireTimeInMinutes),
-    //         SameSite = SameSiteMode.None,
-    //         Secure = true
-    //     };
-    //
-    //     Response.Cookies.Append(key, value, cookieOptions);
-    // }
+    private void AddCookies(string accessToken, string refreshToken)
+    {
+        SetCookie("AccessToken", accessToken, 720);
+        SetCookie("RefreshToken", refreshToken, 1440);
+    }
+
+    private void RemoveCookies()
+    {
+        Response.Cookies.Delete("AccessToken");
+        Response.Cookies.Delete("RefreshToken");
+    }
+
+    private void SetCookie(string key, string value, int expireTimeInMinutes)
+    {
+        var cookieOptions = new CookieOptions
+        {
+            Secure = true,
+            HttpOnly = true,
+            Expires = DateTimeOffset.UtcNow.AddMinutes(expireTimeInMinutes),
+            SameSite = SameSiteMode.None,
+        };
+
+        Response.Cookies.Append(key, value, cookieOptions);
+    }
 }
