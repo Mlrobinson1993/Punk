@@ -25,11 +25,10 @@ cd Punk/Punk.API
 
 Navigate to the Punk.API directory and run:
 
-dotnet restore
+dotnet restore,
 dotnet build
 
-### **Run the application with HTTPS configuration**
-
+### !!Run the application with HTTPS configuration!!
 
 ## Frontend
 
