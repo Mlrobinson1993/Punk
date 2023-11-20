@@ -27,7 +27,7 @@ The Punk Application is a .NET 7.0 Web API with a Nuxt 3 front-end application.
 - Mediatr
 
 ##### Why?
-- clear separation of commands and queries, resulting in a scalable and maintainable codebase.
+- Clear separation of commands and queries, resulting in a scalable and maintainable codebase.
 
 #### Front End
 - Composables pattern
