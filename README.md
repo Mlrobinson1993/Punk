@@ -16,8 +16,8 @@ To run the Punk Application, ensure you have the following installed:
 
 add: 
 
-BASE_URL=https://localhost:7218
-NODE_TLS_REJECT_UNAUTHORIZED=0
+- BASE_URL=https://localhost:7218
+- NODE_TLS_REJECT_UNAUTHORIZED=0
 
 ## Back End
 
