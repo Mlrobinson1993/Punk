@@ -1,6 +1,6 @@
 # Punk
 
-### App url: [app url](https://transcendent-entremet-4b0e75.netlify.app/)
+### You'lk find the app [here](https://transcendent-entremet-4b0e75.netlify.app/)
 
 ## System Requirements
 To run the Punk Application, ensure you have the following installed:
