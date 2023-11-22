@@ -1,6 +1,13 @@
 # Punk
 
-### You'lk find the app [here](https://transcendent-entremet-4b0e75.netlify.app/)
+### You'll find the app [here](https://transcendent-entremet-4b0e75.netlify.app/)
+
+# About the app
+
+Punk Api is a .NET 7.0 Web API with a Nuxt 3 front-end, deployed as a static web app on Netlify (front end), an App Service on Azure (back end) and an Azure SQL database.
+
+#### Note: You may experience some slowness / erroring on DB transactions when you first start up as the sql server warms up.
+
 
 ## System Requirements
 To run the Punk Application, ensure you have the following installed:
@@ -38,12 +45,6 @@ To run the Punk Application, ensure you have the following installed:
 
 - npm install
 - npm run dev
-
-# About the app
-
-The Punk Application is a .NET 7.0 Web API with a Nuxt 3 front-end, deployed as a static web app on Netlify (front end), an App Service on Azure (back end) and an Azure SQL database.
-
-#### Note: You may experience some slowness / erroring on DB transactions when you first start up as the sql server warms up.
 
 ## Technologies used
 
