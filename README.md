@@ -15,9 +15,9 @@ To run the Punk Application, ensure you have the following installed:
 - cd Punk/Punk.API
 
 ## If running locally
--Head to Punk.Frontend/nuxt.config.js
--- Comment out the line labelled (// Comment me out to test live)
--- Uncomment the line labelled (// Uncomment me to test locally)
+- Head to Punk.Frontend/nuxt.config.js
+- Comment out the line labelled (// Comment me out to test live)
+- Uncomment the line labelled (// Uncomment me to test locally)
 
 ## Back End
 
