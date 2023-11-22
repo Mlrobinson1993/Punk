@@ -21,6 +21,12 @@ jobs:
         with:
           dotnet-version: '7.x'
           include-prerelease: true
+
+      - name: List directory contents
+        run: ls -la
+
+      - name: List Punk.Api directory contents
+        run: ls -la ./Punk.Api
       
       - name: Build with dotnet
         run: dotnet build --configuration Release ./Punk.Api/Punk.sln
