@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
+using Microsoft.IdentityModel.Tokens;
 using Punk.Application.Services;
 
 namespace Punk.Presentation.Handlers;
@@ -23,9 +24,9 @@ public class JwtAuthenticationHandler : AuthenticationHandler<AuthenticationSche
 
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
-        var accessToken = Request.Cookies["AccessToken"];
+        var accessToken = Request.Headers["Authorization"];
 
-        if (accessToken == null)
+        if (accessToken.IsNullOrEmpty())
         {
             return AuthenticateResult.NoResult();
         }

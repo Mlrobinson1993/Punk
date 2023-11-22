@@ -5,6 +5,7 @@ import type { ApiResponse } from "~/types/ApiResponse";
 import { useApi } from "~/composables/useApi";
 import { useUserStore } from "~/store";
 import { useToast } from "~/composables/useToast";
+import type { RefreshToken } from "~/types/RefreshToken";
 
 export const useAuthStore = defineStore(
   "auth",
@@ -16,15 +17,20 @@ export const useAuthStore = defineStore(
     const isAuthenticated: Ref<boolean> = ref(false);
     const hasCheckedStatus: Ref<boolean> = ref(false);
     const loading: Ref<boolean> = ref(true);
+    const token: Ref<string | null> = ref(null);
+    const refresh: Ref<string | null> = ref(null);
 
     async function login(formData: FormData) {
-      const response: ApiResponse<User> = await fetchApi("/auth/authenticate", {
+      const response = await fetchApi<User>("/auth/authenticate", {
         method: "POST",
         body: formData,
       });
 
       if (response.statusCode === 200) {
-        userStore.setUser(response.data);
+        const { id, name, username, favouriteBeers } = response.data;
+        token.value = response.data.token;
+        refresh.value = response.data.refreshToken;
+        userStore.setUser({ id, name, username, favouriteBeers } as User);
         isAuthenticated.value = true;
         return true;
       }
@@ -36,6 +42,8 @@ export const useAuthStore = defineStore(
 
         if (response.statusCode === 200) {
           userStore.setUser(null);
+          token.value = null;
+          refresh.value = null;
           isAuthenticated.value = false;
           hasCheckedStatus.value = false;
           return true;
@@ -48,6 +56,7 @@ export const useAuthStore = defineStore(
         isAuthenticated.value = false;
         hasCheckedStatus.value = false;
       } finally {
+        navigateTo("/auth");
       }
     }
 
@@ -55,6 +64,7 @@ export const useAuthStore = defineStore(
       setLoading(true);
       try {
         const isValid = await validateToken();
+        console.log(isValid);
 
         if (isValid) {
           isAuthenticated.value = true;
@@ -93,9 +103,15 @@ export const useAuthStore = defineStore(
 
     async function refreshToken() {
       try {
-        const response = await fetchApi("/auth/refresh", {
+        const response = await fetchApi<RefreshToken>("/auth/refresh", {
           method: "POST",
+          body: { refreshToken: refresh.value, expiredToken: token.value },
         });
+
+        if (response.statusCode === 200) {
+          token.value = response.data.token;
+          refresh.value = response.data.refreshToken;
+        }
 
         return response.statusCode === 200;
       } catch (error) {
@@ -120,6 +136,8 @@ export const useAuthStore = defineStore(
       isLoading,
       validateToken,
       hasCheckedStatus,
+      token,
+      refresh,
     };
   },
   {

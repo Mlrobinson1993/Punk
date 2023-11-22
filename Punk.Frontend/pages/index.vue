@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Hero />
-    <FavouriteBeersSection :maxResults="4" />
+    <FavouriteBeersSection :maxResults="8" :showResults="4" />
     <FeaturedBeersSection :maxResults="8" />
   </div>
 </template>

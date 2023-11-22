@@ -3,15 +3,10 @@ export default defineNuxtConfig({
   modules: ["@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-svgo"],
   runtimeConfig: {
     public: {
-      apiBase: process.env.BASE_URL,
+      apiBase: "https://punk-api.azurewebsites.net",
     },
   },
-  devServer: {
-    https: {
-      key: "localhost-key.pem",
-      cert: "localhost.pem",
-    },
-  },
+
   svgo: {
     defaultImport: "component",
     componentPrefix: "Icon",

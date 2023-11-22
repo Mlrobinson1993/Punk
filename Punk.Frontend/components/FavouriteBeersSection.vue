@@ -7,7 +7,7 @@
     />
 
     <BeerList
-      :beers="userFavouriteBeers"
+      :beers="userFavouriteBeers.slice(0, resultsToShow)"
       :loading="loading"
       :maxResults="maxResults"
       emptyMessage="No favourite beers found"
@@ -26,21 +26,27 @@ import { useToast } from "~/composables/useToast";
 const { showToast } = useToast();
 
 // Props
-const { maxResults } = defineProps({
+const props = defineProps({
   maxResults: { type: Number, default: 4 },
+  showResults: { type: Number, default: -1, required: false },
 });
 
 //State
 const currentPage = ref(1);
 const loading = ref(true);
 const userStore = useUserStore();
-const beers = ref([]);
 const { userFavouriteBeers } = storeToRefs(userStore);
 const route = useRoute();
 
+const resultsToShow = computed(() =>
+  props.showResults && props.showResults > 0
+    ? props.showResults
+    : props.maxResults
+);
+
 // Computed Properties
 const showSeeMore = computed(
-  () => route.path === "/" && beers.value.length > 0
+  () => route.path === "/" && userFavouriteBeers.value.length > 0
 );
 
 // Methods
@@ -53,7 +59,10 @@ const handlePagination = async (page: number) => {
 
 const fetchBeers = async () => {
   try {
-    await userStore.fetchUserFavouriteBeers(currentPage.value, maxResults);
+    await userStore.fetchUserFavouriteBeers(
+      currentPage.value,
+      resultsToShow.value
+    );
   } catch (e) {
     showToast("error", err?.data?.message ?? "Something went wrong", 4000);
   } finally {
@@ -61,7 +70,8 @@ const fetchBeers = async () => {
   }
 };
 
-// Lifecycle Hooks
+// // Lifecycle Hooks
+
 onMounted(fetchBeers);
 </script>
 

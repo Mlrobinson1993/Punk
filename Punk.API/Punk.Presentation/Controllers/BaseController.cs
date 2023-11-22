@@ -6,7 +6,7 @@ using Punk.Presentation.Models;
 
 namespace Punk.Presentation.Controllers;
 
-[Authorize(AuthenticationSchemes = "JwtAuthScheme")]
+// [Authorize(AuthenticationSchemes = "JwtAuthScheme")]
 public class BaseController : ControllerBase
 {
     public IMediator _mediator;
@@ -118,4 +118,6 @@ public class BaseController : ControllerBase
 
         return apiResponse;
     }
+
+    protected string GetTokenFromHeader() => Request.Headers["Authorization"];
 }
