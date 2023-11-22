@@ -6,7 +6,7 @@
 
 Punk Api is a .NET 7.0 Web API with a Nuxt 3 front-end, deployed as a static web app on Netlify (front end), an App Service on Azure (back end) and an Azure SQL database.
 
-#### Note: You may experience some slowness / erroring on DB transactions when you first start up as the sql server warms up.
+#### Note: You may experience some slowness / erroring on DB transactions when you first start up as the sql server starts.
 
 
 ## System Requirements
