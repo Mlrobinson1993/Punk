@@ -10,10 +10,10 @@ public class UserDto
     public string Name { get; set; }
     public string Username { get; set; }
 
-    // [JsonIgnore] 
+
     public string Token { get; set; }
 
-    // [JsonIgnore] 
+
     public string RefreshToken { get; set; }
 
     public List<FavouriteBeer> FavouriteBeers { get; set; }

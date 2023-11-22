@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
         builder => builder.WithOrigins(origins)
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowCredentials());
+    );
 });
 
 var app = builder.Build();

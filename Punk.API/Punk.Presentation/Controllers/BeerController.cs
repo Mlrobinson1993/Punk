@@ -37,9 +37,10 @@ public class BeerController : BaseController
     [HttpGet("favourites")]
     public async Task<IActionResult> GetFavourites()
     {
-        var token = Request.Cookies["AccessToken"];
+        
         var pageSize = Int32.TryParse(Request.Query["pageSize"].ToString(), out int size) ? size : 25;
         var page = Int32.TryParse(Request.Query["page"].ToString(), out int p) ? p : 1;
-        return await ProcessMediator(new GetFavouriteBeersQuery(token, page, pageSize));
+        return await ProcessMediator(new GetFavouriteBeersQuery(GetTokenFromHeader(), page, pageSize));
     }
+    
 }

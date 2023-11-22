@@ -22,78 +22,25 @@ public class AuthController : BaseController
     [AllowAnonymous]
     public async Task<IActionResult> Authenticate([FromForm] AuthenticateUserCommand command)
     {
-        var response = await ProcessMediatorForData(command, 200, 401);
-
-        if (response.Success)
-        {
-            var authData = (UserDto)response.Data;
-            AddCookies(authData.Token, authData.RefreshToken);
-        }
-
-        return new ObjectResult(response)
-        {
-            StatusCode = response.StatusCode
-        };
+        return await ProcessMediator(command, 200, 401);
     }
 
     [HttpPost("refresh")]
-    public async Task<IActionResult> RefreshToken()
+    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenCommand command)
     {
-        var refreshToken = Request.Cookies["RefreshToken"];
-        var expiredToken = Request.Cookies["AccessToken"];
-        var response = await ProcessMediatorForData(new RefreshTokenCommand(refreshToken, expiredToken), 200, 401);
-
-        if (response.Success)
-        {
-            var tokenData = (RefreshTokenDto)response.Data;
-            AddCookies(tokenData.Token, tokenData.RefreshToken);
-        }
-
-        return new ObjectResult(response)
-        {
-            StatusCode = response.StatusCode
-        };
+        return await ProcessMediator(command, 200, 401);
     }
 
     [HttpPost("logout")]
     [AllowAnonymous]
     public async Task<IActionResult> Logout()
     {
-        var token = Request.Cookies["AccessToken"];
-
-        RemoveCookies();
-
-        return await ProcessMediator(new DeauthenticateUserCommand(token), 200, 400);
+        return await ProcessMediator(new DeauthenticateUserCommand(GetTokenFromHeader()), 200, 400);
     }
 
     [HttpGet("validate")]
     public async Task<IActionResult> Validate()
     {
-        return await ProcessMediator(new ValidateTokenQuery(Request.Cookies["AccessToken"]), 200, 400);
-    }
-
-    private void AddCookies(string accessToken, string refreshToken)
-    {
-        SetCookie("AccessToken", accessToken, 720);
-        SetCookie("RefreshToken", refreshToken, 1440);
-    }
-
-    private void RemoveCookies()
-    {
-        Response.Cookies.Delete("AccessToken");
-        Response.Cookies.Delete("RefreshToken");
-    }
-
-    private void SetCookie(string key, string value, int expireTimeInMinutes)
-    {
-        var cookieOptions = new CookieOptions
-        {
-            Secure = true,
-            HttpOnly = true,
-            Expires = DateTimeOffset.UtcNow.AddMinutes(expireTimeInMinutes),
-            SameSite = SameSiteMode.None,
-        };
-
-        Response.Cookies.Append(key, value, cookieOptions);
+        return await ProcessMediator(new ValidateTokenQuery(GetTokenFromHeader()), 200, 400);
     }
 }

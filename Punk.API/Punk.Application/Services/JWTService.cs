@@ -69,10 +69,11 @@ public class JwtService : IJwtService
     private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
     {
         var tokenValidationParameters = GetValidationParameters();
-        tokenValidationParameters.ValidateLifetime = false; // We are checking expired token here
+        tokenValidationParameters.ValidateLifetime = false;
 
+        var tokenWithoutBearer = token.Replace("Bearer ", "");
         var tokenHandler = new JwtSecurityTokenHandler();
-        var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+        var principal = tokenHandler.ValidateToken(tokenWithoutBearer, tokenValidationParameters, out SecurityToken securityToken);
         var jwtSecurityToken = securityToken as JwtSecurityToken;
         if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
                 StringComparison.InvariantCultureIgnoreCase))

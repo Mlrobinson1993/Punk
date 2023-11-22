@@ -14,3 +14,8 @@ export interface FavouriteBeerCommand {
   beerId: number;
   isFavourite: boolean;
 }
+
+export interface RefreshTokenCommand {
+  refreshToken: string;
+  expiredToken: string;
+}

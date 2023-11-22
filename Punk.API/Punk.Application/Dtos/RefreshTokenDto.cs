@@ -4,6 +4,6 @@ namespace Punk.Application.Dtos;
 
 public class RefreshTokenDto
 {
-    [JsonIgnore] public string RefreshToken { get; set; }
-    [JsonIgnore] public string Token { get; set; }
+    public string RefreshToken { get; set; }
+    public string Token { get; set; }
 }

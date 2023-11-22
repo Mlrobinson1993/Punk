@@ -1,3 +1,5 @@
+console.log("processing for: " + process.env.BASE_URL);
+
 export default defineNuxtConfig({
   ssr: false,
   modules: ["@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-svgo"],
@@ -6,12 +8,17 @@ export default defineNuxtConfig({
       apiBase: process.env.BASE_URL,
     },
   },
-  devServer: {
-    https: {
-      key: "localhost-key.pem",
-      cert: "localhost.pem",
-    },
-  },
+
+  // nitro: {
+  //   devProxy: {
+  //     "/api/": {
+  //       target: process.env.BASE_URL,
+  //       changeOrigin: true,
+  //       prependPath: true,
+  //       secure: false,
+  //     },
+  //   },
+  // },
   svgo: {
     defaultImport: "component",
     componentPrefix: "Icon",
