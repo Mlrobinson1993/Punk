@@ -12,6 +12,13 @@ To run the Punk Application, ensure you have the following installed:
 - git clone [repository-url](https://github.com/Mlrobinson1993/Punk.git)
 - cd Punk/Punk.API
 
+## Create a .env file
+
+add: 
+
+BASE_URL=https://localhost:7218
+NODE_TLS_REJECT_UNAUTHORIZED=0
+
 ## Back End
 
 ### Restore Dependencies:
