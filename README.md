@@ -21,11 +21,6 @@ To run the Punk Application, ensure you have the following installed:
 - git clone [repository-url](https://github.com/Mlrobinson1993/Punk.git)
 - cd Punk/Punk.API
 
-## If running locally
-- Head to Punk.Frontend/nuxt.config.js
-- Comment out the line labelled (// Comment me out to test live)
-- Uncomment the line labelled (// Uncomment me to test locally)
-
 ## Back End
 
 ### Restore Dependencies:
