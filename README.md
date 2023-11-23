@@ -1,5 +1,14 @@
 # Punk
 
+### You'll find the app [here](https://transcendent-entremet-4b0e75.netlify.app/)
+
+# About the app
+
+Punk Api is a .NET 7.0 Web API with a Nuxt 3 front-end, deployed as a static web app on Netlify (front end), an App Service on Azure (back end) and an Azure SQL database.
+
+#### Note: You may experience some slowness / erroring on DB transactions when you first start up as the sql server starts.
+
+
 ## System Requirements
 To run the Punk Application, ensure you have the following installed:
 
@@ -12,12 +21,10 @@ To run the Punk Application, ensure you have the following installed:
 - git clone [repository-url](https://github.com/Mlrobinson1993/Punk.git)
 - cd Punk/Punk.API
 
-## Create a .env file
-
-add: 
-
-- BASE_URL=https://localhost:7218
-- NODE_TLS_REJECT_UNAUTHORIZED=0
+## If running locally
+- Head to Punk.Frontend/nuxt.config.js
+- Comment out the line labelled (// Comment me out to test live)
+- Uncomment the line labelled (// Uncomment me to test locally)
 
 ## Back End
 
@@ -28,33 +35,16 @@ add:
 - dotnet restore,
 - dotnet build
 
-### !!Run the application with HTTPS!!
-
 ## Frontend
 
 ### Navigate to frontend directory
 
 - cd Punk/Punk.Frontend
 
-### Install Node Modules:
-
-- npm install
-
-### Check env 
-
-- Ensure that BASE_URL in .env is pointing to the correct back end (Https) url - should be https://localhost:7218 
-
-#### Ensure it is HTTPS
-
 ### Run the Frontend Application:
 
+- npm install
 - npm run dev
-
-# About the app
-
-The Punk Application is a .NET 7.0 Web API with a Nuxt 3 front-end application.
-
-#### Note: You may experience some slowness / erroring on DB transactions when you first start up as the sql server warms up.
 
 ## Technologies used
 
@@ -67,6 +57,7 @@ The Punk Application is a .NET 7.0 Web API with a Nuxt 3 front-end application.
 - Nuxt 3 - Convention over configuration. Allows you to get off of the ground quickly and easily, abstracting away redundant tasks (i.e. routing).
 - Pinia (State management) - Allows for modular stores and clean code. Is the gold standard for Nuxt 3 apps.
 - SCSS (styling) - Allows for cleaner code with nesting and provides helpers that vanilla CSS does not.
+
 
 #### Database
 - Azure SQL - Quick, easy, out-of-the-box, limited configuration database deployments.
@@ -86,46 +77,3 @@ The Punk Application is a .NET 7.0 Web API with a Nuxt 3 front-end application.
 ##### Why? 
 - Clear separation and modularisation of code.
 
-
-## System Requirements
-To run the Punk Application, ensure you have the following installed:
-
-- .NET Core 7 SDK
-- Node.js (LTS version)
-- A suitable IDE (e.g., Visual Studio, VS Code)
-
-## Clone the Repository:
-
-- git clone [repository-url](https://github.com/Mlrobinson1993/Punk.git)
-- cd Punk/Punk.API
-
-## Back End
-
-### Restore Dependencies:
-
-#### Navigate to the Punk.API directory and run:
-
-- dotnet restore,
-- dotnet build
-
-### !!Run the application with HTTPS!!
-
-## Frontend
-
-### Navigate to frontend directory
-
-- cd Punk/Punk.Frontend
-
-### Install Node Modules:
-
-- npm install
-
-### Check env 
-
-- Ensure that BASE_URL in .env is pointing to the correct back end (Https) url - should be https://localhost:7218 
-
-#### Ensure it is HTTPS
-
-### Run the Frontend Application:
-
-- npm run dev
