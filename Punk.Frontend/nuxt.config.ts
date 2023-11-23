@@ -3,7 +3,8 @@ export default defineNuxtConfig({
   modules: ["@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt", "nuxt-svgo"],
   runtimeConfig: {
     public: {
-      apiBase: "https://punk-api.azurewebsites.net",
+      // apiBase: "https://punk-api.azurewebsites.net", // Comment me out to test live
+      apiBase: "http://localhost:7218", // Uncomment me to test locally
     },
   },
 
